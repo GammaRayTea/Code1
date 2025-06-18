@@ -9,3 +9,4 @@ A page for the Code1 module. Yay.
 -made a repo  
 -installed node.js, TypeScript and VSCode plugins  
 
+![Stonks](/images/Stonks.jpg)
