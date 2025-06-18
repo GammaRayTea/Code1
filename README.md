@@ -3,4 +3,4 @@
 
 A page for the Code1 module. Yay.
 
-![Stonks](/images/handsomeSquidward.jpg)
+![Stonks](/images/Stonks.jpg)
