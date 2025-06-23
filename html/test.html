@@ -1,18 +1,59 @@
+<!DOCTYPE html>
 
-<html>
+<html lang="en">
     <head>
-       <title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>
             Very sick and cool website.
-       </title>
-       <link rel="icon" type="image/png" href="images/favicon.png">
+        </title>
+        <link rel="icon" type="image/png" href="images/favicon.png">
+        <style>
+            h1 {color:brown;}
+            p {color:crimson;}
+        </style>
     </head>
-    <body>
-        <n1>
-            This is a body. Great. Yippee
-        </n1>
+    <body style="background-color: darkgray;">
+        <p>
+            <b>This is a body. Great. Yippee </b>
         
+        </p>
+        <p>
+            <a href="OtherPage.html">Click for cool sprite</a>
+        </p>
+        <p>
+            <input type="text" placeholder="Enter stupid stuff">
+        </p>
+        <p>
+            <button id="Shine" onClick="playPause()">
+                
+                <audio src="/sounds/falco1e.mp3" autoplay>
+                    Shine
+
+                </audio>
+                <img src="images/Shine.png" alt="Shine" height="100" width="86">
+            </button>
+            <script>
+                var aud = document.getElementById("Shine").children[0];
+                var isPlaying=false;
+                aud.pause()
+                function playPause() {
+                    aud.play();
+                }
+            </script>
+        </p>
+        <p>
+            <ul>
+                <li>
+                     This is one part of a list
+
+                </li>
+                <li>
+                    <b>This is another</b>
+                </li>
+            </ul>
+        </p>
         
-     
     </body>
 
 
