@@ -1,66 +1,79 @@
 <!DOCTYPE html>
 
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>
-            Very sick and cool website.
-        </title>
-        <link rel="icon" type="image/png" href="images/favicon.png">
-        <style>
-            h1 {color:brown;}
-            p {color:crimson;}
-        </style>
-    </head>
-    <body style="background-color: darkgray;">
-        <p>
-            <b>This is a body. Great. Yippee </b>
-        
-        </p>
-        <p>
-            <a href="OtherPage.html">Click for cool sprite</a>
-        </p>
-        <p>
-            <input type="text" placeholder="This won't do anything">
-        </p>
-        <p>
-            <button id="Shine" onClick="playPause()">
-                
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        Very sick and cool website.
+    </title>
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <link rel="stylesheet" href="style.css" type="text/css">
+</head>
+
+<body>
+    <p id="introduction">
+        <b>This is a body. Great. Yippee </b>
+
+    </p>
+    <p>
+        <a href="OtherPage.html">Click for cool sprite</a>
+    </p>
+    <p>
+        <input type="text" placeholder="This won't do anything">
+    </p>
+    <p id="shineButton">
+
+    </p>
+    <p id="listTest">
+    <ul>
+        <li>
+            This is one part of a list
+
+        </li>
+        <li>
+            <b>This is another</b>
+        </li>
+    </ul>
+    </p>
+
+
+    <div class="buttonContainer">
+        <div class="shineContainer">
+            <button class="bottomButton" id="shineButton" onClick="playPause()">
+
                 <audio src="https://github.com/GammaRayTea/Code1/blob/main/sounds/falco1e.mp3?raw=true" autoplay>
                     Shine
 
                 </audio>
-                <img src="images/Shine.png" alt="Shine" height="100" width="86">
+                <div class="buttonLayout">
+                    <img src="images/Shine.png" class="shineImage" alt="Shine">
+                    <span class="caption">Shine sound</span>
+                </div>
+
             </button>
             <script>
                 var aud = document.getElementById("Shine").children[0];
-                var isPlaying=false;
+                var isPlaying = false;
                 aud.pause()
                 function playPause() {
                     aud.play();
                 }
             </script>
-        </p>
-        <p>
-            <ul>
-                <li>
-                     This is one part of a list
+        </div>
 
-                </li>
-                <li>
-                    <b>This is another</b>
-                </li>
-            </ul>
-        </p>
-        
-        <p>
-            <button id="Carlos" onClick="window.location.href='BinaryDungeon/BinaryDungeon.html';">
-                Play BinaryDungeon
-                <img src="images/Carlos Weber PixelF.png">
-            </button>
-        </p>
-    </body>
+
+        <button class="bottomButton" onClick="window.location.href='BinaryDungeon/BinaryDungeon.html';">
+
+            <div class="buttonLayout" id="carlosButtonLayout">
+                <img src="images/Carlos Weber PixelF.png" class="carlosImage">
+                <span class="caption">Play BinaryDungeon</span>
+            </div>
+        </button>
+    </div>
+
+</body>
 
 
 </html>

@@ -1,0 +1,74 @@
+body {
+    background-color: #3b3b3c;
+    margin: 100px;
+    font-size: 50px;
+}
+
+p {
+    text-align: center;
+    color: aliceblue;
+
+}
+
+button.bottomButton {
+    background-color: #4b4b82;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 150px;
+    height: 180px;
+    flex-wrap: wrap;
+}
+
+button.
+/* links */
+
+*:link {
+    color: rgb(199, 255, 253)
+}
+
+*:visited {
+    color: rgb(129, 194, 194)
+}
+
+
+
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+div.buttonContainer {
+    justify-content: start;
+    align-content: end;
+    display:grid;
+    grid-template-columns: 150px 150px auto;
+    grid-template-rows: 1fr;
+}
+
+
+div.buttonLayout {
+
+    vertical-align: top;
+    display: inline-block;
+    text-align: center;
+    width: 140px;
+    font-weight: 900;
+    
+}
+
+img.carlosImage {
+    max-width: 100%;
+    height: auto;
+}
+
+div.shineContainer {
+   
+    grid-column-start: 1;
+}
+img.shineImage{
+    height: 140px;
+    width: 120px;
+}
