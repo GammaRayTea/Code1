@@ -1,5 +1,11 @@
 "use strict";
-let a = { "wert1": true, "wert2": false };
-let vector = { x: 12.4, y: -7.2, meaning: "Ortsvektor" };
-let students = [];
-students.push({ name: "Big Brain", matrikel: 123456, grades: { "EIA1": 1.3, "EIA2": 1.0 } });
+let z0 = 4;
+let z1 = 7;
+let z2 = 5;
+let z3 = 3;
+let temp;
+let isWinning;
+temp = z0 ^ z1;
+temp = temp ^ z2;
+temp = temp ^ z3;
+console.log(temp);
