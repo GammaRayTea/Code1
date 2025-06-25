@@ -10,6 +10,8 @@
     </title>
     <link rel="icon" type="image/png" href="images/favicon.png">
     <link rel="stylesheet" href="style.css" type="text/css">
+    
+    <script src="Scripts/test.js"></script>
 </head>
 
 <body>
@@ -43,7 +45,7 @@
         <div class="shineContainer">
             <button class="bottomButton" id="shineButton" onClick="playPause()">
 
-                <audio src="https://github.com/GammaRayTea/Code1/blob/main/sounds/falco1e.mp3?raw=true" autoplay>
+                <audio id="shineSound" src="https://github.com/GammaRayTea/Code1/blob/main/sounds/falco1e.mp3?raw=true" autoplay> <!--src="https://github.com/GammaRayTea/Code1/blob/main/sounds/falco1e.mp3?raw=true"--> 
                     Shine
 
                 </audio>
@@ -53,14 +55,8 @@
                 </div>
 
             </button>
-            <script>
-                var aud = document.getElementById("Shine").children[0];
-                var isPlaying = false;
-                aud.pause()
-                function playPause() {
-                    aud.play();
-                }
-            </script>
+            <script src="Scripts/playShineAudio.js"></script>
+           
         </div>
 
 
