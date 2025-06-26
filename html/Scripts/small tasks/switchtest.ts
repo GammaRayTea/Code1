@@ -1,6 +1,6 @@
 {
     console.log("available actions: Rinse, Wash, Spin, Rinse2, Spin2")
-    console.log(`run executeWashing("actionName") to start. The machine will do the given action and every action after that.`)
+    console.log(`run executeWashing("actionName") to start. The machine will execute the given action and every action in the list after it.`)
 }
 function executeWashing (actionName:String) {
     let action: String= actionName;
