@@ -1,20 +1,24 @@
 {
-    let action: String= "Rinse";
+    console.log("available actions: Rinse, Wash, Spin, Rinse2, Spin2")
+    console.log(`run executeWashing("actionName") to start. The machine will do the given action and every action after that.`)
+}
+function executeWashing (actionName:String) {
+    let action: String= actionName;
     switch (action) {
         case ("Rinse"):
             console.log("Rinsing...");
-            break;
+            
         case ("Wash"):
             console.log("Washing...");
-            break;
+        
         case ("Spin"):
             console.log("Spinning..");
-            break;
+            
         case ("Rinse2"):
             console.log("Rinsing...2");
-            break;
+
         case ("Spin2"):
             console.log("Spinning...2");
-            break;
+            
     }
 }
