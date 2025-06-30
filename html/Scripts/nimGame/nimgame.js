@@ -47,7 +47,7 @@ var NimGame;
                 }
             }
             else {
-                subtractAmountFromRow(_row, true);
+                subtractAmountFromRow(_row);
             }
         }
         else {
@@ -106,6 +106,7 @@ var NimGame;
         if ((_amount > _row) || (_amount < 1)) {
             alert("Pick a valid amount!");
             subtractAmountFromRow(_row);
+            return false;
         }
         else {
             return true;
