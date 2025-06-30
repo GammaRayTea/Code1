@@ -64,9 +64,6 @@ var NimGame;
                     }
                     break;
             }
-            {
-                subtractAmountFromRow(_row);
-            }
         }
         else {
             alert("Pick a valid row!");

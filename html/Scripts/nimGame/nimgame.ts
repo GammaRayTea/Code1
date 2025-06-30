@@ -78,9 +78,6 @@ namespace NimGame {
                     break;
             }
             
-            else {
-                subtractAmountFromRow(_row);
-            }
         }
         else {
             alert("Pick a valid row!")
