@@ -8,4 +8,4 @@ temp = z0 ^ z1;
 temp = temp ^ z2;
 temp = temp ^ z3;
 console.log(temp);
-//# sourceMappingURL=nim.js.map
+//# sourceMappingURL=nimsolver.js.map
