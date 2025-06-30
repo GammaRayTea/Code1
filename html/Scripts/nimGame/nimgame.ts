@@ -160,7 +160,7 @@ namespace NimGame {
     function isAmountValid(_amount: number, _row: number): boolean {
         if ((_amount > _row) || (_amount < 1)) {
             alert("Pick a valid amount!")
-            subtractAmountFromRow(_row);
+            
             return false;
         }
         else {

@@ -124,7 +124,6 @@ var NimGame;
     function isAmountValid(_amount, _row) {
         if ((_amount > _row) || (_amount < 1)) {
             alert("Pick a valid amount!");
-            subtractAmountFromRow(_row);
             return false;
         }
         else {
