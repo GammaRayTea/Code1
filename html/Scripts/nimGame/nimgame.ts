@@ -39,26 +39,45 @@ namespace NimGame {
             console.log(_row)
             let amount: number;
             amount = Number(prompt(createGameStateInfo() + "\n" + "Input amount to take"))
-            if (isAmountValid(amount, _row)) {
 
-                switch (_row) {
-                    case 1:
+            switch (_row) {
+                case 1:
+                    if (isAmountValid(amount, row1)) {
                         row1 = row1 - amount;
-                        break;
+                    }
+                    else {
+                        subtractAmountFromRow(_row);
+                    }
+                    break;
 
-                    case 2:
+                case 2:
+                    if (isAmountValid(amount, row2)) {
                         row2 = row2 - amount;
-                        break;
+                    }
+                    else {
+                        subtractAmountFromRow(_row);
+                    }
+                    break;
 
-                    case 3:
+                case 3:
+                    if (isAmountValid(amount, row3)) {
                         row3 = row3 - amount;
-                        break;
+                    }
+                    else {
+                        subtractAmountFromRow(_row);
+                    }
+                    break;
 
-                    case 4:
+                case 4:
+                    if (isAmountValid(amount, row4)) {
                         row4 = row4 - amount;
-                        break;
-                }
+                    }
+                    else {
+                        subtractAmountFromRow(_row);
+                    }
+                    break;
             }
+            
             else {
                 subtractAmountFromRow(_row);
             }
