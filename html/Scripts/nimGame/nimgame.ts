@@ -1,12 +1,20 @@
 namespace NimGame {
 
 
-    let activePlayer: boolean = true;
-    let rows: number[] = [0, 0, 0, 0]
+    let activePlayer: boolean;
+    let rows: number[];
+    initalise();
 
+    
 
-    fillRows();
-    mainLoop();
+    function initalise(){
+        activePlayer = true;
+        rows= [0, 0, 0, 0]
+        fillRows();
+        mainLoop();
+    }
+
+    
 
     function mainLoop() {
         displayState();
@@ -30,6 +38,9 @@ namespace NimGame {
         rows[3] = Number(prompt("Input starting value for row 4"));
     }
 
+
+
+
     function subtractAmountFromRow(_row: number) {
         if (isRowValid(_row)) {
 
@@ -48,9 +59,10 @@ namespace NimGame {
         }
         else {
             alert("Pick a valid row!")
-            subtractAmountFromRow(askRowNumber())
+            subtractAmountFromRow(askRowNumber());
         }
     }
+
 
 
 
@@ -70,6 +82,7 @@ namespace NimGame {
 
 
 
+
     function createGameStateInfo(): string {
         return (
             "Left in row 1: " + String(rows[0]) + "\n" +
@@ -81,11 +94,13 @@ namespace NimGame {
 
 
 
+
     function askRowNumber(): number {
 
         return Number(prompt("Input row number"));
 
     }
+
 
 
 
@@ -99,6 +114,9 @@ namespace NimGame {
             return false;
         }
     }
+
+
+
 
     function displayWinner() {
         if (activePlayer) {
@@ -117,6 +135,7 @@ namespace NimGame {
 
 
 
+
     function isRowValid(_row: number): boolean {
         console.log(_row)
         console.log(rows[_row - 1])
@@ -126,18 +145,20 @@ namespace NimGame {
 
         }
         else if (rows[_row - 1] == 0) {
-            console.log(rows[_row - 1])
+            console.log(rows[_row - 1]);
             return false;
         }
         else {
             return true;
         }
     }
+
+
 
 
     function isAmountValid(_amount: number, _row: number): boolean {
         if ((_amount > _row) || (_amount < 1) || ((Number.isNaN(_amount)))) {
-            alert("Pick a valid amount!")
+            alert("Pick a valid amount!");
 
             return false;
         }
@@ -145,7 +166,6 @@ namespace NimGame {
             return true;
         }
     }
-
 }
 
 

@@ -1,10 +1,15 @@
 "use strict";
 var NimGame;
 (function (NimGame) {
-    let activePlayer = true;
-    let rows = [0, 0, 0, 0];
-    fillRows();
-    mainLoop();
+    let activePlayer;
+    let rows;
+    initalise();
+    function initalise() {
+        activePlayer = true;
+        rows = [0, 0, 0, 0];
+        fillRows();
+        mainLoop();
+    }
     function mainLoop() {
         displayState();
         subtractAmountFromRow(askRowNumber());
