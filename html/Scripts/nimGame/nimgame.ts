@@ -7,6 +7,7 @@ namespace NimGame {
 
     
 
+    
     function initalise(){
         activePlayer = true;
         rows= [0, 0, 0, 0]
@@ -14,7 +15,8 @@ namespace NimGame {
         mainLoop();
     }
 
-    
+
+
 
     function mainLoop() {
         displayState();
@@ -126,6 +128,7 @@ namespace NimGame {
             alert("Player 1 Wins!");
         }
     }
+
 
 
 
