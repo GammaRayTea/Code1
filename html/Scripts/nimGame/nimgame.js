@@ -2,10 +2,7 @@
 var NimGame;
 (function (NimGame) {
     let activePlayer = true;
-    let row1;
-    let row2;
-    let row3;
-    let row4;
+    let rows = [0, 0, 0, 0];
     fillRows();
     mainLoop();
     function mainLoop() {
@@ -20,53 +17,20 @@ var NimGame;
         }
     }
     function fillRows() {
-        row1 = Number(prompt("Input starting value for row 1"));
-        row2 = Number(prompt("Input starting value for row 2"));
-        row3 = Number(prompt("Input starting value for row 3"));
-        row4 = Number(prompt("Input starting value for row 4"));
+        rows[0] = Number(prompt("Input starting value for row 1"));
+        rows[1] = Number(prompt("Input starting value for row 2"));
+        rows[2] = Number(prompt("Input starting value for row 3"));
+        rows[3] = Number(prompt("Input starting value for row 4"));
     }
     function subtractAmountFromRow(_row) {
         if (isRowValid(_row)) {
-            console.log(_row);
             let amount;
             amount = Number(prompt(createGameStateInfo() + "\n" + "Input amount to take"));
-            switch (_row) {
-                case 1:
-                    if (isAmountValid(amount, row1)) {
-                        row1 = row1 - amount;
-                        break;
-                    }
-                    else {
-                        subtractAmountFromRow(_row);
-                        break;
-                    }
-                case 2:
-                    if (isAmountValid(amount, row2)) {
-                        row2 = row2 - amount;
-                        break;
-                    }
-                    else {
-                        subtractAmountFromRow(_row);
-                        break;
-                    }
-                case 3:
-                    if (isAmountValid(amount, row3)) {
-                        row3 = row3 - amount;
-                        break;
-                    }
-                    else {
-                        subtractAmountFromRow(_row);
-                        break;
-                    }
-                case 4:
-                    if (isAmountValid(amount, row4)) {
-                        row4 = row4 - amount;
-                        break;
-                    }
-                    else {
-                        subtractAmountFromRow(_row);
-                        break;
-                    }
+            if (isAmountValid(amount, rows[_row - 1])) {
+                rows[_row - 1] = rows[_row - 1] - amount;
+            }
+            else {
+                subtractAmountFromRow(_row);
             }
         }
         else {
@@ -86,16 +50,16 @@ var NimGame;
             playerTurnMessage);
     }
     function createGameStateInfo() {
-        return ("Left in row 1: " + String(row1) + "\n" +
-            "Left in row 2: " + String(row2) + "\n" +
-            "Left in row 3: " + String(row3) + "\n" +
-            "Left in row 4: " + String(row4) + "\n" + " \n");
+        return ("Left in row 1: " + String(rows[0]) + "\n" +
+            "Left in row 2: " + String(rows[1]) + "\n" +
+            "Left in row 3: " + String(rows[2]) + "\n" +
+            "Left in row 4: " + String(rows[3]) + "\n" + " \n");
     }
     function askRowNumber() {
         return Number(prompt("Input row number"));
     }
     function checkWin() {
-        if (row1 + row2 + row3 + row4 == 0) {
+        if (rows[0] + rows[1] + rows[2] + rows[3] == 0) {
             return true;
         }
         else {
@@ -114,7 +78,13 @@ var NimGame;
         activePlayer = !activePlayer;
     }
     function isRowValid(_row) {
-        if ((_row > 4) || _row < 0) {
+        console.log(rows);
+        console.log(rows[_row - 1]);
+        if ((_row > 4) || _row < 1) {
+            return false;
+        }
+        else if (rows[_row - 1] == 0) {
+            console.log(rows[_row - 1]);
             return false;
         }
         else {
