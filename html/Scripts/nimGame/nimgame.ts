@@ -44,38 +44,46 @@ namespace NimGame {
                 case 1:
                     if (isAmountValid(amount, row1)) {
                         row1 = row1 - amount;
+                        break;
                     }
                     else {
                         subtractAmountFromRow(_row);
+                        break;
                     }
-                    break;
+                    
 
                 case 2:
                     if (isAmountValid(amount, row2)) {
                         row2 = row2 - amount;
+                        break;
                     }
                     else {
                         subtractAmountFromRow(_row);
+                        break;
                     }
-                    break;
+                    
 
                 case 3:
                     if (isAmountValid(amount, row3)) {
                         row3 = row3 - amount;
+                        break;
                     }
                     else {
                         subtractAmountFromRow(_row);
+                        break;
                     }
-                    break;
+                    
 
                 case 4:
                     if (isAmountValid(amount, row4)) {
                         row4 = row4 - amount;
+                        break;
                     }
                     else {
                         subtractAmountFromRow(_row);
+                        break;
                     }
-                    break;
+                    
             }
             
         }
@@ -135,7 +143,7 @@ namespace NimGame {
             alert("Player 2 Wins!");
         }
         else {
-            alert("Player 1 Wins!")
+            alert("Player 1 Wins!");
         }
     }
     function changePlayer() {
@@ -143,20 +151,20 @@ namespace NimGame {
     }
     function isRowValid(_row: number): boolean {
         if ((_row > 4) || _row < 0) {
-            return false
+            return false;
         }
         else {
-            return true
+            return true;
         }
     }
     function isAmountValid(_amount: number, _row: number): boolean {
         if ((_amount > _row) || (_amount < 1)) {
             alert("Pick a valid amount!")
-            subtractAmountFromRow(_row)
-            return false
+            subtractAmountFromRow(_row);
+            return false;
         }
         else {
-            return true
+            return true;
         }
     }
 

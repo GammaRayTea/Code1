@@ -34,35 +34,39 @@ var NimGame;
                 case 1:
                     if (isAmountValid(amount, row1)) {
                         row1 = row1 - amount;
+                        break;
                     }
                     else {
                         subtractAmountFromRow(_row);
+                        break;
                     }
-                    break;
                 case 2:
                     if (isAmountValid(amount, row2)) {
                         row2 = row2 - amount;
+                        break;
                     }
                     else {
                         subtractAmountFromRow(_row);
+                        break;
                     }
-                    break;
                 case 3:
                     if (isAmountValid(amount, row3)) {
                         row3 = row3 - amount;
+                        break;
                     }
                     else {
                         subtractAmountFromRow(_row);
+                        break;
                     }
-                    break;
                 case 4:
                     if (isAmountValid(amount, row4)) {
                         row4 = row4 - amount;
+                        break;
                     }
                     else {
                         subtractAmountFromRow(_row);
+                        break;
                     }
-                    break;
             }
         }
         else {
