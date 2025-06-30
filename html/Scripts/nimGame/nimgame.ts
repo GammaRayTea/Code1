@@ -118,9 +118,10 @@ namespace NimGame {
 
 
     function isRowValid(_row: number): boolean {
-        console.log(rows)
+        console.log(_row)
         console.log(rows[_row - 1])
-        if ((_row > 4) || _row < 1) {
+        
+        if ((_row > 4) || (_row < 1) || (Number.isNaN(_row))) {
             return false;
 
         }
@@ -135,7 +136,7 @@ namespace NimGame {
 
 
     function isAmountValid(_amount: number, _row: number): boolean {
-        if ((_amount > _row) || (_amount < 1)) {
+        if ((_amount > _row) || (_amount < 1) || ((Number.isNaN(_amount)))) {
             alert("Pick a valid amount!")
 
             return false;

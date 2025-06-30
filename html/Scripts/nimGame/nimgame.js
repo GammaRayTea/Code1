@@ -78,9 +78,9 @@ var NimGame;
         activePlayer = !activePlayer;
     }
     function isRowValid(_row) {
-        console.log(rows);
+        console.log(_row);
         console.log(rows[_row - 1]);
-        if ((_row > 4) || _row < 1) {
+        if ((_row > 4) || (_row < 1) || (Number.isNaN(_row))) {
             return false;
         }
         else if (rows[_row - 1] == 0) {
@@ -92,7 +92,7 @@ var NimGame;
         }
     }
     function isAmountValid(_amount, _row) {
-        if ((_amount > _row) || (_amount < 1)) {
+        if ((_amount > _row) || (_amount < 1) || ((Number.isNaN(_amount)))) {
             alert("Pick a valid amount!");
             return false;
         }
