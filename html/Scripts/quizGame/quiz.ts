@@ -21,7 +21,7 @@ namespace Quiz {
 
 
     function mainLoop() {
-        console.log(questionNr)
+        
         queryQuestion();
         matchQuestionType();
 
@@ -36,7 +36,7 @@ namespace Quiz {
         currentQText = currentQuestion.questionText;
         currentAnswerData = currentQuestion.answerData;
         currentQType = currentQuestion.type;
-        console.log(currentQuestion)
+        
 
     }
 
@@ -60,7 +60,7 @@ namespace Quiz {
             }
 
             case "MC": { //Multiple Choice
-                console.log("reached switch")
+                
                 askMultipleChoice();
                 break;
             }
@@ -102,19 +102,20 @@ namespace Quiz {
         }
 
     }
-    
 
 
 
-    function validateMultipleChoiceAnswer(_input: string | null, _correctLetters: string[], _falseLetters: string[]): boolean | null {
 
+    function validateMultipleChoiceAnswer(_input: string | null, _correctLetters: string[]): boolean | null {
+        let letterList: string[]= ["A","B","C","D"]
+        
         if (_input == null) {
             return null
         }
         else if (_correctLetters.includes(_input.toUpperCase())) {
             return true;
         }
-        else if (_falseLetters.includes(_input.toUpperCase())){
+        else if (letterList.includes(_input.toUpperCase())) {
             return false
         }
         else {
@@ -154,13 +155,14 @@ namespace Quiz {
 
     function askMultipleChoice() {
         let textToDisplay: string = currentQText + "\n";
-        let answerInformation = getMCAnswerTypes();
+        let answerInformation:string[] = getMCAnswerLetters();
+        console.log(answerInformation)
         textToDisplay += (
             "Choose the correct answer:" + "\n" +
-            assembleMCAnswers(answerInformation[1])
+            assembleMCAnswers()
         );
         let input: string | null = prompt(textToDisplay);
-        let validatedInput: boolean | null = validateMultipleChoiceAnswer(input, answerInformation[0], answerInformation[2]);
+        let validatedInput: boolean | null = validateMultipleChoiceAnswer(input, answerInformation);
 
 
         if (validatedInput == null) {
@@ -200,59 +202,43 @@ namespace Quiz {
     }
 
 
-    function assembleMCAnswers(_falseAnswerAmount: number): string {
-        let assembledAnswers: string = "";
-        if (_falseAnswerAmount == 3) {
-            assembledAnswers = (
-                "A:" + currentAnswerData.c1 + "\n" +
-                "B:" + currentAnswerData.f1 + "\n" +
-                "C:" + currentAnswerData.f2 + "\n" +
-                "D:" + currentAnswerData.f3 + "\n"
-            );
-        }
-        else if (_falseAnswerAmount == 2) {
-            assembledAnswers = (
-                "A:" + currentAnswerData.c1 + "\n" +
-                "B:" + currentAnswerData.c2 + "\n" +
-                "C:" + currentAnswerData.f1 + "\n" +
-                "D:" + currentAnswerData.f2 + "\n"
-            );
-        }
-        else if (_falseAnswerAmount == 1) {
-            assembledAnswers = (
-                "A:" + currentAnswerData.c1 + "\n" +
-                "B:" + currentAnswerData.c2 + "\n" +
-                "C:" + currentAnswerData.c3 + "\n" +
-                "D:" + currentAnswerData.f1 + "\n"
-            );
-        }
-        console.log("assembled Answers")
+    function assembleMCAnswers(): string {
+
+        let assembledAnswers: string = (
+            "A:" + currentAnswerData.answers[0] + "\n" +
+            "B:" + currentAnswerData.answers[1] + "\n" +
+            "C:" + currentAnswerData.answers[2] + "\n" +
+            "D:" + currentAnswerData.answers[3] + "\n"
+        );
+
+        
         return assembledAnswers;
     }
 
-    function getMCAnswerTypes(): [string[], number, string[]] {
-        let correctLetters: string[];
-        let falseLetters: string[];
-        let falseAnswerAmount: number;
-        if (currentAnswerData.f3) {
-            correctLetters = ["A", "B", "C"];
-            falseLetters = ["D"]
-            falseAnswerAmount = 3;
+    function getMCAnswerLetters(): string[]{
+        let correctLetters: string[] = [];
+       
+        if (currentAnswerData.correct.includes("D")){
+            correctLetters.push("D")
+            
 
         }
-        else if (currentAnswerData.f2) {
-            correctLetters = ["A", "B"];
-            falseLetters = ["C","D"]
-            falseAnswerAmount = 2;
+        if (currentAnswerData.correct.includes("C")){
+            correctLetters.push("C")
+            
 
         }
-        else {
-            correctLetters = ["A"];
-            falseLetters = ["B", "C", "D"]
-            falseAnswerAmount = 1;
+        if (currentAnswerData.correct.includes("B")){
+            correctLetters.push("B")
+            
 
         }
-        return [correctLetters, falseAnswerAmount, falseLetters]
+        if (currentAnswerData.correct.includes("A")){
+            
+            correctLetters.push("A")
+
+        }
+        return correctLetters
 
 
     }

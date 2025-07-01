@@ -7,10 +7,10 @@ namespace Quiz {
 
 
         //--Multiple Choice ("MC") Questions--
-        // In "answerData", "c1" is the correct answer and f1-3 are the false ones. 
+        // In "answerData", there is an array for the texts of all answers and an array containing the corresponding letters of the correct ones. 
         // There can also be mutliple correct answers c1-3 with the amount of false answers decreasing proportionally. 
-        // There must be exactly 4 answers in total. The correct answers must be on the left, the false ones on the right. The numbering must occur from left to right.
-        { "type": "MC", "questionText": "This is a multiple choice question", "answerData": {"c1": "correct", "f1": "false1", "f2": "false2", "f3": "false3"} },
+        // There must be exactly 4 answers in total. 
+        { "type": "MC", "questionText": "This is a multiple choice question", "answerData": {"answers":[ "correct", "false1", "false2", "false3"],"correct": ["A"]} },
 
         //Text Entry ("TE") Questions--
         //answerData contains an Array with different possible spellings of the correct answer
