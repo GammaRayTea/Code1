@@ -5,8 +5,8 @@ var Quiz;
         //--Single Choice ("SC") Questions--
         { "type": "SC", "questionText": "This is a single choice question", "answerData": true },
         //--Multiple Choice ("MC") Questions--
-        // In "answerData", there is an array for the texts of all answers and an array containing the corresponding letters of the correct ones. 
-        // There can also be mutliple correct answers c1-3 with the amount of false answers decreasing proportionally. 
+        // In "answerData", there is an array with the texts of all answers and an array containing the corresponding letters of the correct ones. 
+        // There may also be mutliple correct answers with the amount of false answers decreasing proportionally. 
         // There must be exactly 4 answers in total. 
         { "type": "MC", "questionText": "This is a multiple choice question", "answerData": { "answers": ["correct", "false1", "false2", "false3"], "correct": ["A"] } },
         //Text Entry ("TE") Questions--
