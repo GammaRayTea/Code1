@@ -142,8 +142,8 @@ namespace diceSim {
             for (var value of splitInstrucion) {
 
                 value = Number(value);
-                if (Number.isNaN(value) || !Number.isInteger(value)) {
-                    console.log("not number or integer");
+                if (Number.isNaN(value) || !Number.isInteger(value) || value < 1) {
+                    console.log("not number that is at least 1 or integer");
                     return [[], false];
                 }
                 else {
