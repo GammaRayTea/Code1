@@ -171,11 +171,13 @@ namespace diceSim {
         switch (_reason) {
             case "rollAmount": {
                 console.log("roll amount invalid");
+                alert("please enter a valid amount")
                 mainLoop(true);
                 break;
             }
             case "rollInstructions": {
                 console.log("roll instr invalid");
+                alert("please enter valid instructions")
                 mainLoop(true);
                 break;
             }
