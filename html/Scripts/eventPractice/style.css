@@ -1,0 +1,19 @@
+.mainContent {
+    display: grid;
+    margin: 50px;
+    grid-template-columns: 100px 100px;
+    grid-template-areas: "left right";
+
+}
+
+div[name="div0"] {
+    grid-area: right;
+    background-color: rgb(14, 79, 79);
+    height: 500px;
+}
+
+div[name="div1"] {
+    grid-area: right;
+    height: 500px;
+    background-color: rgb(14, 79, 79);
+}
