@@ -47,7 +47,7 @@ namespace Quiz {
 
 
         let textToDisplay: string;
-        let input: string | null;
+        //let input: string | null;
         textToDisplay = currentQText + "\n";
 
 
@@ -182,16 +182,16 @@ namespace Quiz {
 
 
 
-    function askTextEntry() {
+    // function askTextEntry() {
 
-    }
-
-
+    // }
 
 
-    function askEstimation() {
 
-    }
+
+    // function askEstimation() {
+
+    // }
 
 
 

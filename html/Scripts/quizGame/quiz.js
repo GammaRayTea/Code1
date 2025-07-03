@@ -22,7 +22,7 @@ var Quiz;
     }
     function matchQuestionType() {
         let textToDisplay;
-        let input;
+        //let input: string | null;
         textToDisplay = currentQText + "\n";
         switch (currentQType) {
             case "SC": { //Single Choice
@@ -114,10 +114,10 @@ var Quiz;
             matchQuestionType();
         }
     }
-    function askTextEntry() {
-    }
-    function askEstimation() {
-    }
+    // function askTextEntry() {
+    // }
+    // function askEstimation() {
+    // }
     function onCorrectAnswer() {
         questionNr++;
         mainLoop();
