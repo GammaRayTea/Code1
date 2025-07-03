@@ -1,13 +1,14 @@
 .mainContent {
     display: grid;
-    margin: 50px;
-    grid-template-columns: 100px 100px;
+    margin: 5%;
+    grid-template-columns: 1fr 1fr;
     grid-template-areas: "left right";
+    column-gap: 100px;
 
 }
 
 div[name="div0"] {
-    grid-area: right;
+    grid-area: left;
     background-color: rgb(14, 79, 79);
     height: 500px;
 }
