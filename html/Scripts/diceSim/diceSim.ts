@@ -251,7 +251,7 @@ namespace diceSim {
             return _currentRollSum;
         }
         else {
-            return (globalAverage + _currentRollSum) / 2
+            return globalSum/rollsSimulated;
         }
     }
 

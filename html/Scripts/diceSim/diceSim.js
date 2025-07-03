@@ -172,7 +172,7 @@ var diceSim;
             return _currentRollSum;
         }
         else {
-            return (globalAverage + _currentRollSum) / 2;
+            return globalSum / rollsSimulated;
         }
     }
     function chooseGlobalMedian(_listOfSums) {
