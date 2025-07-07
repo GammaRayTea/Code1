@@ -12,7 +12,7 @@ namespace eventPractice {
 
         let divs = document.getElementsByClassName("blueBox");
 
-        for (var value of divs) {
+        for (let value of divs) {
             console.log(value)
             value.addEventListener("click", handleClick);
             value.addEventListener("keyup", handleKeyup);
