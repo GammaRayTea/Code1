@@ -1,10 +1,20 @@
+html {
+    height: 100%;
+}
+
 .mainContent {
     display: grid;
     margin: 5%;
     grid-template-columns: 1fr 1fr;
-    grid-template-areas: "left right";
+    grid-template-rows: 100px 1fr;
+    grid-template-areas: "top top" "left right";
     column-gap: 100px;
+    height: 100%;
 
+}
+
+h1[name="header"] {
+    grid-area: top;
 }
 
 div[name="div0"] {
@@ -17,4 +27,9 @@ div[name="div1"] {
     grid-area: right;
     height: 500px;
     background-color: rgb(14, 79, 79);
+}
+
+span[id="infoBox"] {
+    position: fixed;
+    background-color: rgb(249, 255, 194);
 }
