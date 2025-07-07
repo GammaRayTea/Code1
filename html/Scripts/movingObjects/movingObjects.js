@@ -4,7 +4,7 @@ var movingObjects;
     let initBall;
     let ballList = [];
     let viewPortDimensions;
-    let ballSpeed = 5;
+    let ballSpeed = 7;
     //let simSpeed:number = 13;
     window.addEventListener("load", handleLoad);
     function handleLoad(_event) {

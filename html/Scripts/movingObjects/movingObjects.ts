@@ -47,7 +47,6 @@ namespace movingObjects {
             ball["pos"]["x"] += ball["vel"]["x"];
             ball["pos"]["y"] += ball["vel"]["y"];
             ball["currentBall"].style.transform = assembleMatrix(ball["pos"]["x"], ball["pos"]["y"]);
-
         }
     }
 
