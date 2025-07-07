@@ -4,6 +4,7 @@ var eventPractice;
     window.addEventListener("load", handleLoad);
     function handleLoad(_event) {
         document.addEventListener("mousemove", handleMouseMovement);
+        document.addEventListener("click", handleClick);
         document.addEventListener("keyup", handleKeyup);
         document.body.addEventListener("click", handleClick);
         document.body.addEventListener("keyup", handleKeyup);

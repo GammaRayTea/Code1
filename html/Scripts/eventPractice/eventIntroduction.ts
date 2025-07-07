@@ -4,6 +4,7 @@ namespace eventPractice {
     function handleLoad(_event: Event): void {
 
         document.addEventListener("mousemove", handleMouseMovement);
+        document.addEventListener("click", handleClick);
         document.addEventListener("keyup", handleKeyup);
 
         document.body.addEventListener("click", handleClick);
