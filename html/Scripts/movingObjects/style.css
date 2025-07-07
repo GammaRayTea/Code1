@@ -1,5 +1,14 @@
 html {
     height: 100%;
+    background-color: rgb(38, 38, 38);
 }
 
+.ball {
+    position: fixed;
+    width: 1px;
+    height: 1px;
+    border-radius: 25px;
+    background-color: rgb(201, 106, 106);
+    transform: matrix(10, 0, 0, 10, 500, 500);
 
+}
