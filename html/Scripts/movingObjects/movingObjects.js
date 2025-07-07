@@ -17,12 +17,13 @@ var movingObjects;
             ballList.push({
                 "currentBall": initBall.cloneNode(true),
                 "pos": { "x": randomInt(1, visualViewport?.width), "y": randomInt(1, visualViewport?.height) },
-                "vel": { "x": randomInt(-20, 20), "y": randomInt(-20, 20) }
+                "vel": createVelocity()
             });
             ballList[i]["currentBall"].style.transform = assembleMatrix(ballList[i]["pos"]["x"], ballList[i]["pos"]["y"]);
             document.body.appendChild(ballList[i]["currentBall"]);
+            ballList[i]["currentBall"].style.backgroundColor = `rgb(${randomInt(20, 255)},${randomInt(20, 255)},${randomInt(20, 255)})`;
         }
-        setInterval(movement, 16);
+        setInterval(movement, 13);
     }
     function movement() {
         for (let i = 0; i < ballList.length; i++) {
@@ -34,12 +35,29 @@ var movingObjects;
             ball["currentBall"].style.transform = assembleMatrix(ball["pos"]["x"], ball["pos"]["y"]);
         }
     }
-    function randomInt(min, max) {
-        console.log(min, max);
-        return min + Math.floor((max - min + 1) * Math.random());
+    function randomInt(_min, _max) {
+        return _min + Math.floor((_max - _min + 1) * Math.random());
     }
     function assembleMatrix(_translateX, _translateY) {
         return `matrix(10,0,0,10,${_translateX},${_translateY})`;
+    }
+    function createVelocity() {
+        let x = randomInt(-20, 20);
+        let y = randomInt(-20, 20);
+        let timeout = 0;
+        while (x == 0 && y == 0) {
+            if (timeout == 3) {
+                x = 1;
+                y = -1;
+                break;
+            }
+            else {
+                x = randomInt(-20, 20);
+                y = randomInt(-20, 20);
+                timeout++;
+            }
+        }
+        return { "x": randomInt(-20, 20), "y": randomInt(-20, 20) };
     }
     function checkBounds(_ballPos, _viewportValue) {
         if (_ballPos > _viewportValue || _ballPos <= 0) {
