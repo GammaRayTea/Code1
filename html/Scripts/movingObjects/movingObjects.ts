@@ -6,6 +6,8 @@ namespace movingObjects {
     type ballObject = { currentBall: HTMLElement, pos: Vector, vel: Vector };
     let ballList: ballObject[] = [];
     let viewPortDimensions: Vector;
+    let ballSpeed:number =5;
+    //let simSpeed:number = 13;
     window.addEventListener("load", handleLoad);
 
     function handleLoad(_event: Event): void {
@@ -14,6 +16,7 @@ namespace movingObjects {
         console.log(viewPortDimensions);
         initBall = document.getElementsByClassName("ball")[0] as HTMLElement;
         createBalls(Number(prompt("enter amount to spawn")));
+        //simSpeed = Number(prompt("Enter time for a single frame in milliseconds"));
         document.body.removeChild(initBall);
 
     }
@@ -26,7 +29,7 @@ namespace movingObjects {
                 "pos": { "x": randomInt(1, visualViewport?.width as number), "y": randomInt(1, visualViewport?.height as number) },
                 "vel": createVelocity()
             });
-
+            console.log(ballList[i]["vel"])
             ballList[i]["currentBall"].style.transform = assembleMatrix(ballList[i]["pos"]["x"], ballList[i]["pos"]["y"]);
             document.body.appendChild(ballList[i]["currentBall"]);
             ballList[i]["currentBall"].style.backgroundColor = `rgb(${randomInt(20, 255)},${randomInt(20, 255)},${randomInt(20, 255)})`;
@@ -63,8 +66,8 @@ namespace movingObjects {
 
 
     function createVelocity(): { "x": number, "y": number } {
-        let x: number = randomInt(-20, 20);
-        let y: number = randomInt(-20, 20);
+        let x: number = randomInt(-ballSpeed, ballSpeed);
+        let y: number = randomInt(-ballSpeed, ballSpeed);
         let timeout: number = 0
         while (x == 0 && y == 0) {
             if (timeout == 3) {
@@ -74,14 +77,14 @@ namespace movingObjects {
             }
             else {
 
-                x = randomInt(-20, 20);
-                y = randomInt(-20, 20);
+                x = randomInt(-ballSpeed, ballSpeed);
+                y = randomInt(-ballSpeed, ballSpeed);
                 timeout++;
             }
 
         }
 
-        return { "x": randomInt(-20, 20), "y": randomInt(-20, 20) }
+        return { "x": randomInt(-ballSpeed, ballSpeed), "y": randomInt(-ballSpeed, ballSpeed) }
     }
     function checkBounds(_ballPos: number, _viewportValue: number): number {
         if (_ballPos > _viewportValue || _ballPos <= 0) {
