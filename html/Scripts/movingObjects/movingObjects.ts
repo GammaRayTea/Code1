@@ -6,7 +6,7 @@ namespace movingObjects {
     type ballObject = { currentBall: HTMLElement, pos: Vector, vel: Vector };
     let ballList: ballObject[] = [];
     let viewPortDimensions: Vector;
-    let ballSpeed:number =5;
+    let ballSpeed:number =8;
     //let simSpeed:number = 13;
     window.addEventListener("load", handleLoad);
 
