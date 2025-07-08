@@ -16,7 +16,7 @@ namespace movingObjects {
     function handleLoad(_event: Event): void {
         window.addEventListener("resize", handleResize)
         handleResize();
-        console.log(viewPortDimensions);
+        
         initBall = document.getElementsByClassName("ball")[0] as HTMLElement;
         createBalls(Number(prompt("enter amount to spawn (anything from around 4000 onwoards won't be very fun")));
         //simSpeed = Number(prompt("Enter time for a single frame in milliseconds"));
@@ -34,7 +34,7 @@ namespace movingObjects {
                 "pos": { "x": randomInt(1, visualViewport?.width as number), "y": randomInt(1, visualViewport?.height as number) },
                 "vel": createVelocity()
             });
-            console.log(ballList[i]["vel"])
+            
             ballList[i]["currentBall"].style.transform = assembleMatrix(ballList[i]["pos"]["x"], ballList[i]["pos"]["y"]);
             document.body.appendChild(ballList[i]["currentBall"]);
             ballList[i]["currentBall"].style.backgroundColor = `rgb(${randomInt(20, 255)},${randomInt(20, 255)},${randomInt(20, 255)})`;
