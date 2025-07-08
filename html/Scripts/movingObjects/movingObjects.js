@@ -4,11 +4,15 @@ var movingObjects;
     let initBall;
     let ballList = [];
     let viewPortDimensions;
-    let ballSpeed = 8;
+    let ballSpeed = 400;
+    let previousTime;
+    let currentTime;
+    let deltaTime;
     //let simSpeed:number = 13;
     window.addEventListener("load", handleLoad);
     function handleLoad(_event) {
-        viewPortDimensions = { "x": visualViewport?.width, "y": visualViewport?.height };
+        window.addEventListener("resize", handleResize);
+        handleResize();
         console.log(viewPortDimensions);
         initBall = document.getElementsByClassName("ball")[0];
         createBalls(Number(prompt("enter amount to spawn")));
@@ -16,6 +20,7 @@ var movingObjects;
         document.body.removeChild(initBall);
     }
     function createBalls(_amount) {
+        previousTime = Date.now();
         for (let i = 0; i < _amount; i++) {
             ballList.push({
                 "currentBall": initBall.cloneNode(true),
@@ -30,14 +35,25 @@ var movingObjects;
         setInterval(movement, 13);
     }
     function movement() {
+        calcDelta();
+        let deltaDivided = deltaTime / 1000;
         for (let i = 0; i < ballList.length; i++) {
             let ball = ballList[i];
             ball["vel"]["x"] *= checkBounds(ball["pos"]["x"], viewPortDimensions["x"]);
             ball["vel"]["y"] *= checkBounds(ball["pos"]["y"], viewPortDimensions["y"]);
-            ball["pos"]["x"] += ball["vel"]["x"];
-            ball["pos"]["y"] += ball["vel"]["y"];
+            ball["pos"]["x"] += ball["vel"]["x"] * deltaDivided;
+            ball["pos"]["y"] += ball["vel"]["y"] * deltaDivided;
             ball["currentBall"].style.transform = assembleMatrix(ball["pos"]["x"], ball["pos"]["y"]);
         }
+        previousTime = currentTime;
+    }
+    function calcDelta() {
+        currentTime = Date.now();
+        deltaTime = currentTime - previousTime;
+        displayDeltaTime();
+    }
+    function displayDeltaTime() {
+        document.getElementById("frameCounter").innerText = String(Math.round(1000 / deltaTime));
     }
     function randomInt(_min, _max) {
         return _min + Math.floor((_max - _min + 1) * Math.random());
@@ -70,6 +86,9 @@ var movingObjects;
         else {
             return 1;
         }
+    }
+    function handleResize() {
+        viewPortDimensions = { "x": window.innerWidth, "y": window.innerHeight };
     }
 })(movingObjects || (movingObjects = {}));
 //# sourceMappingURL=movingObjects.js.map

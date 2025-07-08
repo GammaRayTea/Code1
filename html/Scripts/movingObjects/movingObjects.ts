@@ -6,13 +6,16 @@ namespace movingObjects {
     type ballObject = { currentBall: HTMLElement, pos: Vector, vel: Vector };
     let ballList: ballObject[] = [];
     let viewPortDimensions: Vector;
-    let ballSpeed:number =8;
+    let ballSpeed: number = 400;
+    let previousTime: number;
+    let currentTime: number;
+    let deltaTime: number
     //let simSpeed:number = 13;
     window.addEventListener("load", handleLoad);
 
     function handleLoad(_event: Event): void {
-
-        viewPortDimensions = { "x": visualViewport?.width as number, "y": visualViewport?.height as number };
+        window.addEventListener("resize", handleResize)
+        handleResize();
         console.log(viewPortDimensions);
         initBall = document.getElementsByClassName("ball")[0] as HTMLElement;
         createBalls(Number(prompt("enter amount to spawn")));
@@ -21,7 +24,9 @@ namespace movingObjects {
 
     }
 
+
     function createBalls(_amount: number) {
+        previousTime = Date.now()
         for (let i = 0; i < _amount; i++) {
 
             ballList.push({
@@ -38,17 +43,36 @@ namespace movingObjects {
     }
     function movement() {
 
-
+        calcDelta();
+        let deltaDivided = deltaTime / 1000
 
         for (let i = 0; i < ballList.length; i++) {
             let ball = ballList[i];
             ball["vel"]["x"] *= checkBounds(ball["pos"]["x"], viewPortDimensions["x"]);
             ball["vel"]["y"] *= checkBounds(ball["pos"]["y"], viewPortDimensions["y"]);
-            ball["pos"]["x"] += ball["vel"]["x"];
-            ball["pos"]["y"] += ball["vel"]["y"];
+            ball["pos"]["x"] += ball["vel"]["x"] * deltaDivided;
+            ball["pos"]["y"] += ball["vel"]["y"] * deltaDivided;
             ball["currentBall"].style.transform = assembleMatrix(ball["pos"]["x"], ball["pos"]["y"]);
         }
+
+        previousTime = currentTime;
     }
+
+    function calcDelta() {
+        currentTime = Date.now();
+        deltaTime = currentTime - previousTime;
+
+        displayDeltaTime();
+    }
+
+
+    function displayDeltaTime() {
+
+        document.getElementById("frameCounter")!.innerText = String(Math.round(1000 / deltaTime));
+    }
+
+
+
 
     function randomInt(_min: number, _max: number): number {
 
@@ -93,5 +117,10 @@ namespace movingObjects {
             return 1
 
         }
+    }
+
+
+    function handleResize(){
+        viewPortDimensions = { "x": window.innerWidth as number, "y": window.innerHeight as number };
     }
 }

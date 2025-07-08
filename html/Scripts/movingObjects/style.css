@@ -12,3 +12,6 @@ html {
     transform: matrix(10, 0, 0, 10, 500, 500);
 
 }
+#frameCounter {
+    color:white;
+}
