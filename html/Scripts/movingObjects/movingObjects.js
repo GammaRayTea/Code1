@@ -15,7 +15,7 @@ var movingObjects;
         handleResize();
         console.log(viewPortDimensions);
         initBall = document.getElementsByClassName("ball")[0];
-        createBalls(Number(prompt("enter amount to spawn")));
+        createBalls(Number(prompt("enter amount to spawn (anything from around 4000 onwoards won't be very fun")));
         //simSpeed = Number(prompt("Enter time for a single frame in milliseconds"));
         document.body.removeChild(initBall);
     }
