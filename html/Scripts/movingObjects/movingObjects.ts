@@ -13,6 +13,9 @@ namespace movingObjects {
     //let simSpeed:number = 13;
     window.addEventListener("load", handleLoad);
 
+
+
+
     function handleLoad(_event: Event): void {
         window.addEventListener("resize", handleResize);
         document.body.addEventListener("click", onClick);
@@ -20,11 +23,22 @@ namespace movingObjects {
 
         initBall = document.getElementsByClassName("ball")[0] as HTMLElement;
         createBalls(Number(prompt("enter amount to spawn (anything from around 4000 onwoards won't be very fun")));
-        setInterval(movement, 13);
+        setInterval(physicsProcess, 16.6666);
         //simSpeed = Number(prompt("Enter time for a single frame in milliseconds"));
         document.body.removeChild(initBall);
 
     }
+
+
+
+
+    function physicsProcess() {
+        calcDeltaTime();
+        movement();
+        doCollision()
+    }
+
+
 
 
     function createBalls(_amount: number, _randomised: boolean = true, _clickedPos: number[] = [0, 0], _listSize: number = 0) {
@@ -38,7 +52,7 @@ namespace movingObjects {
             }
             else {
                 posToAdd = { "x": _clickedPos[0], "y": _clickedPos[1] };
-                ballIndex = _listSize+i;
+                ballIndex = _listSize + i;
             }
 
             BALL_LIST.push({
@@ -55,9 +69,12 @@ namespace movingObjects {
         }
 
     }
-    function movement() {
 
-        calcDelta();
+
+
+
+    function movement() {
+        
         let deltaDivided = deltaTime / 1000
 
         for (let i = 0; i < BALL_LIST.length; i++) {
@@ -72,12 +89,59 @@ namespace movingObjects {
         previousTime = currentTime;
     }
 
-    function calcDelta() {
+
+
+
+    function doCollision() {
+
+        for (let ball of BALL_LIST.slice(0, BALL_LIST.length - 1)) {
+
+            for (let nextBall of BALL_LIST.slice(BALL_LIST.indexOf(ball) + 1)) {
+
+                if (calcBallDistance(ball, nextBall) <= 0.2) {
+                    console.log("collision", nextBall, ball);
+                    
+                    removeBall(ball.currentBall);
+                    removeBall(nextBall.currentBall);
+                    // break;
+                }
+
+            }
+        }
+    }
+
+
+
+
+    function calcBallDistance(_ball1: ballObject, _ball2: ballObject): number {
+        let distance = Math.hypot(( (Math.abs(_ball1.pos.x)-Math.abs(_ball2.pos.x)) , (Math.abs(_ball1.pos.y)-Math.abs(_ball2.pos.y)) ));
+        console.log(distance);
+        return distance;
+    }
+
+
+
+
+    function checkBounds(_ballPos: number, _viewportValue: number): number {
+        if (_ballPos > _viewportValue || _ballPos <= 0) {
+            return -1
+        }
+        else {
+            return 1
+        }
+    }
+
+
+
+
+    function calcDeltaTime() {
         currentTime = Date.now();
         deltaTime = currentTime - previousTime;
 
         displayDeltaTime();
     }
+
+
 
 
     function displayDeltaTime() {
@@ -97,9 +161,12 @@ namespace movingObjects {
 
 
 
+
     function assembleMatrix(_translateX: number, _translateY: number): string {
         return `matrix(10,0,0,10,${_translateX},${_translateY})`;
     }
+
+
 
 
     function createVelocity(): { "x": number, "y": number } {
@@ -123,15 +190,8 @@ namespace movingObjects {
 
         return { "x": x, "y": y }
     }
-    function checkBounds(_ballPos: number, _viewportValue: number): number {
-        if (_ballPos > _viewportValue || _ballPos <= 0) {
-            return -1
-        }
-        else {
-            return 1
 
-        }
-    }
+
 
 
     function handleResize() {
@@ -141,20 +201,12 @@ namespace movingObjects {
 
 
 
+
     function onClick(_event: MouseEvent) {
         let clickedElement = _event.target as HTMLElement;
 
         if (clickedElement.className == "ball") {
-
-
-            for (let ball of BALL_LIST) {
-                if (ball["currentBall"] == clickedElement) {
-                    BALL_LIST.splice(BALL_LIST.indexOf(ball), 1);
-
-                }
-            }
-            clickedElement.remove();
-
+            removeBall(clickedElement);
         }
         else if (clickedElement.className == "body") {
             createBalls(1, false, [_event.pageX, _event.pageY - 50], BALL_LIST.length);
@@ -162,7 +214,25 @@ namespace movingObjects {
         }
     }
 
+
+
+
+    function removeBall(_ballToRemove: HTMLElement) {
+        for (let ball of BALL_LIST) {
+            if (ball["currentBall"] == _ballToRemove) {
+                BALL_LIST.splice(BALL_LIST.indexOf(ball), 1);
+            }
+        }
+        _ballToRemove.remove();
+    }
+
+
+
+
     function randomColour() {
         return `rgb(${randomInt(20, 255)},${randomInt(20, 255)},${randomInt(20, 255)})`;
     }
+
+
+
 }

@@ -16,9 +16,14 @@ var movingObjects;
         handleResize();
         initBall = document.getElementsByClassName("ball")[0];
         createBalls(Number(prompt("enter amount to spawn (anything from around 4000 onwoards won't be very fun")));
-        setInterval(movement, 13);
+        setInterval(physicsProcess, 16.6666);
         //simSpeed = Number(prompt("Enter time for a single frame in milliseconds"));
         document.body.removeChild(initBall);
+    }
+    function physicsProcess() {
+        calcDeltaTime();
+        movement();
+        doCollision();
     }
     function createBalls(_amount, _randomised = true, _clickedPos = [0, 0], _listSize = 0) {
         previousTime = Date.now();
@@ -45,7 +50,6 @@ var movingObjects;
         }
     }
     function movement() {
-        calcDelta();
         let deltaDivided = deltaTime / 1000;
         for (let i = 0; i < BALL_LIST.length; i++) {
             let ball = BALL_LIST[i];
@@ -57,7 +61,32 @@ var movingObjects;
         }
         previousTime = currentTime;
     }
-    function calcDelta() {
+    function doCollision() {
+        for (let ball of BALL_LIST.slice(0, BALL_LIST.length - 1)) {
+            for (let nextBall of BALL_LIST.slice(BALL_LIST.indexOf(ball) + 1)) {
+                if (calcBallDistance(ball, nextBall) <= 0.2) {
+                    console.log("collision", nextBall, ball);
+                    removeBall(ball.currentBall);
+                    removeBall(nextBall.currentBall);
+                    // break;
+                }
+            }
+        }
+    }
+    function calcBallDistance(_ball1, _ball2) {
+        let distance = Math.hypot(((Math.abs(_ball1.pos.x) - Math.abs(_ball2.pos.x)), (Math.abs(_ball1.pos.y) - Math.abs(_ball2.pos.y))));
+        console.log(distance);
+        return distance;
+    }
+    function checkBounds(_ballPos, _viewportValue) {
+        if (_ballPos > _viewportValue || _ballPos <= 0) {
+            return -1;
+        }
+        else {
+            return 1;
+        }
+    }
+    function calcDeltaTime() {
         currentTime = Date.now();
         deltaTime = currentTime - previousTime;
         displayDeltaTime();
@@ -89,14 +118,6 @@ var movingObjects;
         }
         return { "x": x, "y": y };
     }
-    function checkBounds(_ballPos, _viewportValue) {
-        if (_ballPos > _viewportValue || _ballPos <= 0) {
-            return -1;
-        }
-        else {
-            return 1;
-        }
-    }
     function handleResize() {
         viewPortDimensions = { "x": window.innerWidth, "y": window.innerHeight };
         console.log(viewPortDimensions);
@@ -104,16 +125,19 @@ var movingObjects;
     function onClick(_event) {
         let clickedElement = _event.target;
         if (clickedElement.className == "ball") {
-            for (let ball of BALL_LIST) {
-                if (ball["currentBall"] == clickedElement) {
-                    BALL_LIST.splice(BALL_LIST.indexOf(ball), 1);
-                }
-            }
-            clickedElement.remove();
+            removeBall(clickedElement);
         }
         else if (clickedElement.className == "body") {
             createBalls(1, false, [_event.pageX, _event.pageY - 50], BALL_LIST.length);
         }
+    }
+    function removeBall(_ballToRemove) {
+        for (let ball of BALL_LIST) {
+            if (ball["currentBall"] == _ballToRemove) {
+                BALL_LIST.splice(BALL_LIST.indexOf(ball), 1);
+            }
+        }
+        _ballToRemove.remove();
     }
     function randomColour() {
         return `rgb(${randomInt(20, 255)},${randomInt(20, 255)},${randomInt(20, 255)})`;
