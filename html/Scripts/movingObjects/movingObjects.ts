@@ -4,7 +4,7 @@ namespace movingObjects {
     type Vector = { x: number, y: number };
     let initBall: HTMLElement;
     type ballObject = { currentBall: HTMLElement, pos: Vector, vel: Vector };
-    const BALL_LIST: ballObject[] = [];
+    const ballList: ballObject[] = [];
     let viewPortDimensions: Vector;
     const BALL_SPEED: number = 100;
     let previousTime: number;
@@ -55,15 +55,15 @@ namespace movingObjects {
                 ballIndex = _listSize + i;
             }
 
-            BALL_LIST.push({
+            ballList.push({
                 "currentBall": initBall.cloneNode(true) as HTMLElement,
                 "pos": posToAdd,
                 "vel": createVelocity()
             });
-            let ball = BALL_LIST[ballIndex]["currentBall"];
+            let ball = ballList[ballIndex]["currentBall"];
 
 
-            ball.style.transform = assembleMatrix(BALL_LIST[ballIndex]["pos"]["x"], BALL_LIST[ballIndex]["pos"]["y"]);
+            ball.style.transform = assembleMatrix(ballList[ballIndex]["pos"]["x"], ballList[ballIndex]["pos"]["y"]);
             document.body.appendChild(ball);
             ball.style.backgroundColor = randomColour();
         }
@@ -77,8 +77,8 @@ namespace movingObjects {
         
         let deltaDivided = deltaTime / 1000
 
-        for (let i = 0; i < BALL_LIST.length; i++) {
-            let ball = BALL_LIST[i];
+        for (let i = 0; i < ballList.length; i++) {
+            let ball = ballList[i];
             ball["vel"]["x"] *= checkBounds(ball["pos"]["x"], viewPortDimensions["x"]);
             ball["vel"]["y"] *= checkBounds(ball["pos"]["y"], viewPortDimensions["y"]);
             ball["pos"]["x"] += ball["vel"]["x"] * deltaDivided;
@@ -94,11 +94,11 @@ namespace movingObjects {
 
     function doCollision() {
 
-        for (let ball of BALL_LIST.slice(0, BALL_LIST.length - 1)) {
+        for (let ball of ballList.slice(0, ballList.length - 1)) {
 
-            for (let nextBall of BALL_LIST.slice(BALL_LIST.indexOf(ball) + 1)) {
+            for (let nextBall of ballList.slice(ballList.indexOf(ball) + 1)) {
 
-                if (calcBallDistance(ball, nextBall) <= 0.2) {
+                if (calcBallDistance(ball, nextBall) <= 10) {
                     console.log("collision", nextBall, ball);
                     
                     removeBall(ball.currentBall);
@@ -115,7 +115,7 @@ namespace movingObjects {
 
     function calcBallDistance(_ball1: ballObject, _ball2: ballObject): number {
         let distance = Math.hypot( _ball1.pos.x-_ball2.pos.x , _ball1.pos.y-_ball2.pos.y);
-        console.log(distance);
+        //console.log(distance);
         return distance;
     }
 
@@ -209,7 +209,7 @@ namespace movingObjects {
             removeBall(clickedElement);
         }
         else if (clickedElement.className == "body") {
-            createBalls(1, false, [_event.pageX, _event.pageY - 50], BALL_LIST.length);
+            createBalls(1, false, [_event.pageX, _event.pageY - 50], ballList.length);
 
         }
     }
@@ -218,9 +218,9 @@ namespace movingObjects {
 
 
     function removeBall(_ballToRemove: HTMLElement) {
-        for (let ball of BALL_LIST) {
+        for (let ball of ballList) {
             if (ball["currentBall"] == _ballToRemove) {
-                BALL_LIST.splice(BALL_LIST.indexOf(ball), 1);
+                ballList.splice(ballList.indexOf(ball), 1);
             }
         }
         _ballToRemove.remove();
