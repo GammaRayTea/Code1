@@ -6,7 +6,7 @@ namespace movingObjects {
     type ballObject = { currentBall: HTMLElement, pos: Vector, vel: Vector };
     let ballList: ballObject[] = [];
     let viewPortDimensions: Vector;
-    let ballSpeed: number = 400;
+    const ballSpeed: number = 100;
     let previousTime: number;
     let currentTime: number;
     let deltaTime: number
@@ -14,32 +14,46 @@ namespace movingObjects {
     window.addEventListener("load", handleLoad);
 
     function handleLoad(_event: Event): void {
-        window.addEventListener("resize", handleResize)
+        window.addEventListener("resize", handleResize);
+        document.body.addEventListener("click", onClick);
         handleResize();
-        
+
         initBall = document.getElementsByClassName("ball")[0] as HTMLElement;
         createBalls(Number(prompt("enter amount to spawn (anything from around 4000 onwoards won't be very fun")));
+        setInterval(movement, 13);
         //simSpeed = Number(prompt("Enter time for a single frame in milliseconds"));
         document.body.removeChild(initBall);
 
     }
 
 
-    function createBalls(_amount: number) {
+    function createBalls(_amount: number, _randomised: boolean = true, _clickedPos: number[] = [0, 0], _listSize: number = 0) {
         previousTime = Date.now()
+        let ballIndex: number;
         for (let i = 0; i < _amount; i++) {
+            let posToAdd: { "x": number, "y": number };
+            if (_randomised) {
+                posToAdd = { "x": randomInt(1, visualViewport?.width as number), "y": randomInt(1, visualViewport?.height as number) }
+                ballIndex = i;
+            }
+            else {
+                posToAdd = { "x": _clickedPos[0], "y": _clickedPos[1] };
+                ballIndex = _listSize;
+            }
 
             ballList.push({
                 "currentBall": initBall.cloneNode(true) as HTMLElement,
-                "pos": { "x": randomInt(1, visualViewport?.width as number), "y": randomInt(1, visualViewport?.height as number) },
+                "pos": posToAdd,
                 "vel": createVelocity()
             });
-            
-            ballList[i]["currentBall"].style.transform = assembleMatrix(ballList[i]["pos"]["x"], ballList[i]["pos"]["y"]);
-            document.body.appendChild(ballList[i]["currentBall"]);
-            ballList[i]["currentBall"].style.backgroundColor = `rgb(${randomInt(20, 255)},${randomInt(20, 255)},${randomInt(20, 255)})`;
+            let ball = ballList[ballIndex]["currentBall"];
+
+
+            ball.style.transform = assembleMatrix(ballList[ballIndex]["pos"]["x"], ballList[ballIndex]["pos"]["y"]);
+            document.body.appendChild(ball);
+            ball.style.backgroundColor = randomColour();
         }
-        setInterval(movement, 13);
+
     }
     function movement() {
 
@@ -120,7 +134,35 @@ namespace movingObjects {
     }
 
 
-    function handleResize(){
+    function handleResize() {
         viewPortDimensions = { "x": window.innerWidth as number, "y": window.innerHeight as number };
+    }
+
+
+
+    function onClick(_event: MouseEvent) {
+        let clickedElement = _event.target as HTMLElement;
+        console.log(clickedElement.className);
+        if (clickedElement.className == "ball") {
+
+
+            for (let ball of ballList) {
+                if (ball["currentBall"] == clickedElement) {
+                    let removedBall = ballList.splice(ballList.indexOf(ball), 1);
+                    console.log(removedBall);
+                }
+            }
+            clickedElement.remove();
+            console.log("balllist:");
+            console.log(ballList);
+        }
+        else if (clickedElement.className == "body") {
+            createBalls(1, false, [_event.pageX, _event.pageY-50], ballList.length);
+
+        }
+    }
+
+    function randomColour() {
+        return `rgb(${randomInt(20, 255)},${randomInt(20, 255)},${randomInt(20, 255)})`;
     }
 }

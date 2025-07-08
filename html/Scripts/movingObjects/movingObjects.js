@@ -4,7 +4,7 @@ var movingObjects;
     let initBall;
     let ballList = [];
     let viewPortDimensions;
-    let ballSpeed = 400;
+    const ballSpeed = 100;
     let previousTime;
     let currentTime;
     let deltaTime;
@@ -12,25 +12,37 @@ var movingObjects;
     window.addEventListener("load", handleLoad);
     function handleLoad(_event) {
         window.addEventListener("resize", handleResize);
+        document.body.addEventListener("click", onClick);
         handleResize();
         initBall = document.getElementsByClassName("ball")[0];
         createBalls(Number(prompt("enter amount to spawn (anything from around 4000 onwoards won't be very fun")));
+        setInterval(movement, 13);
         //simSpeed = Number(prompt("Enter time for a single frame in milliseconds"));
         document.body.removeChild(initBall);
     }
-    function createBalls(_amount) {
+    function createBalls(_amount, _randomised = true, _clickedPos = [0, 0], _listSize = 0) {
         previousTime = Date.now();
+        let ballIndex;
         for (let i = 0; i < _amount; i++) {
+            let posToAdd;
+            if (_randomised) {
+                posToAdd = { "x": randomInt(1, visualViewport?.width), "y": randomInt(1, visualViewport?.height) };
+                ballIndex = i;
+            }
+            else {
+                posToAdd = { "x": _clickedPos[0], "y": _clickedPos[1] };
+                ballIndex = _listSize;
+            }
             ballList.push({
                 "currentBall": initBall.cloneNode(true),
-                "pos": { "x": randomInt(1, visualViewport?.width), "y": randomInt(1, visualViewport?.height) },
+                "pos": posToAdd,
                 "vel": createVelocity()
             });
-            ballList[i]["currentBall"].style.transform = assembleMatrix(ballList[i]["pos"]["x"], ballList[i]["pos"]["y"]);
-            document.body.appendChild(ballList[i]["currentBall"]);
-            ballList[i]["currentBall"].style.backgroundColor = `rgb(${randomInt(20, 255)},${randomInt(20, 255)},${randomInt(20, 255)})`;
+            let ball = ballList[ballIndex]["currentBall"];
+            ball.style.transform = assembleMatrix(ballList[ballIndex]["pos"]["x"], ballList[ballIndex]["pos"]["y"]);
+            document.body.appendChild(ball);
+            ball.style.backgroundColor = randomColour();
         }
-        setInterval(movement, 13);
     }
     function movement() {
         calcDelta();
@@ -87,6 +99,27 @@ var movingObjects;
     }
     function handleResize() {
         viewPortDimensions = { "x": window.innerWidth, "y": window.innerHeight };
+    }
+    function onClick(_event) {
+        let clickedElement = _event.target;
+        console.log(clickedElement.className);
+        if (clickedElement.className == "ball") {
+            for (let ball of ballList) {
+                if (ball["currentBall"] == clickedElement) {
+                    let removedBall = ballList.splice(ballList.indexOf(ball), 1);
+                    console.log(removedBall);
+                }
+            }
+            clickedElement.remove();
+            console.log("balllist:");
+            console.log(ballList);
+        }
+        else if (clickedElement.className == "body") {
+            createBalls(1, false, [_event.pageX, _event.pageY - 50], ballList.length);
+        }
+    }
+    function randomColour() {
+        return `rgb(${randomInt(20, 255)},${randomInt(20, 255)},${randomInt(20, 255)})`;
     }
 })(movingObjects || (movingObjects = {}));
 //# sourceMappingURL=movingObjects.js.map
