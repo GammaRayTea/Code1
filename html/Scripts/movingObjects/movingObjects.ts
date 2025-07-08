@@ -114,7 +114,7 @@ namespace movingObjects {
 
 
     function calcBallDistance(_ball1: ballObject, _ball2: ballObject): number {
-        let distance = Math.hypot(( (Math.abs(_ball1.pos.x)-Math.abs(_ball2.pos.x)) , (Math.abs(_ball1.pos.y)-Math.abs(_ball2.pos.y)) ));
+        let distance = Math.hypot( _ball1.pos.x-_ball2.pos.x , _ball1.pos.y-_ball2.pos.y);
         console.log(distance);
         return distance;
     }
