@@ -31,7 +31,7 @@ var movingObjects;
             }
             else {
                 posToAdd = { "x": _clickedPos[0], "y": _clickedPos[1] };
-                ballIndex = _listSize;
+                ballIndex = _listSize + i;
             }
             BALL_LIST.push({
                 "currentBall": initBall.cloneNode(true),
@@ -106,7 +106,7 @@ var movingObjects;
         if (clickedElement.className == "ball") {
             for (let ball of BALL_LIST) {
                 if (ball["currentBall"] == clickedElement) {
-                    let removedBall = BALL_LIST.splice(BALL_LIST.indexOf(ball), 1);
+                    BALL_LIST.splice(BALL_LIST.indexOf(ball), 1);
                 }
             }
             clickedElement.remove();
