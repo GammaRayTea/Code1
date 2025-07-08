@@ -4,9 +4,9 @@ namespace movingObjects {
     type Vector = { x: number, y: number };
     let initBall: HTMLElement;
     type ballObject = { currentBall: HTMLElement, pos: Vector, vel: Vector };
-    let ballList: ballObject[] = [];
+    const BALL_LIST: ballObject[] = [];
     let viewPortDimensions: Vector;
-    const ballSpeed: number = 100;
+    const BALL_SPEED: number = 100;
     let previousTime: number;
     let currentTime: number;
     let deltaTime: number
@@ -28,12 +28,12 @@ namespace movingObjects {
 
 
     function createBalls(_amount: number, _randomised: boolean = true, _clickedPos: number[] = [0, 0], _listSize: number = 0) {
-        previousTime = Date.now()
+        previousTime = Date.now();
         let ballIndex: number;
         for (let i = 0; i < _amount; i++) {
             let posToAdd: { "x": number, "y": number };
             if (_randomised) {
-                posToAdd = { "x": randomInt(1, visualViewport?.width as number), "y": randomInt(1, visualViewport?.height as number) }
+                posToAdd = { "x": randomInt(20, visualViewport?.width as number), "y": randomInt(100, visualViewport?.height as number) };
                 ballIndex = i;
             }
             else {
@@ -41,15 +41,15 @@ namespace movingObjects {
                 ballIndex = _listSize;
             }
 
-            ballList.push({
+            BALL_LIST.push({
                 "currentBall": initBall.cloneNode(true) as HTMLElement,
                 "pos": posToAdd,
                 "vel": createVelocity()
             });
-            let ball = ballList[ballIndex]["currentBall"];
+            let ball = BALL_LIST[ballIndex]["currentBall"];
 
 
-            ball.style.transform = assembleMatrix(ballList[ballIndex]["pos"]["x"], ballList[ballIndex]["pos"]["y"]);
+            ball.style.transform = assembleMatrix(BALL_LIST[ballIndex]["pos"]["x"], BALL_LIST[ballIndex]["pos"]["y"]);
             document.body.appendChild(ball);
             ball.style.backgroundColor = randomColour();
         }
@@ -60,8 +60,8 @@ namespace movingObjects {
         calcDelta();
         let deltaDivided = deltaTime / 1000
 
-        for (let i = 0; i < ballList.length; i++) {
-            let ball = ballList[i];
+        for (let i = 0; i < BALL_LIST.length; i++) {
+            let ball = BALL_LIST[i];
             ball["vel"]["x"] *= checkBounds(ball["pos"]["x"], viewPortDimensions["x"]);
             ball["vel"]["y"] *= checkBounds(ball["pos"]["y"], viewPortDimensions["y"]);
             ball["pos"]["x"] += ball["vel"]["x"] * deltaDivided;
@@ -103,25 +103,25 @@ namespace movingObjects {
 
 
     function createVelocity(): { "x": number, "y": number } {
-        let x: number = randomInt(-ballSpeed, ballSpeed);
-        let y: number = randomInt(-ballSpeed, ballSpeed);
+        let x: number = randomInt(-BALL_SPEED, BALL_SPEED);
+        let y: number = randomInt(-BALL_SPEED, BALL_SPEED);
         let timeout: number = 0
         while (x == 0 && y == 0) {
             if (timeout == 3) {
-                x = 1
-                y = -1
+                x = 1;
+                y = -1;
                 break;
             }
             else {
 
-                x = randomInt(-ballSpeed, ballSpeed);
-                y = randomInt(-ballSpeed, ballSpeed);
+                x = randomInt(-BALL_SPEED, BALL_SPEED);
+                y = randomInt(-BALL_SPEED, BALL_SPEED);
                 timeout++;
             }
 
         }
 
-        return { "x": randomInt(-ballSpeed, ballSpeed), "y": randomInt(-ballSpeed, ballSpeed) }
+        return { "x": x, "y": y }
     }
     function checkBounds(_ballPos: number, _viewportValue: number): number {
         if (_ballPos > _viewportValue || _ballPos <= 0) {
@@ -136,28 +136,28 @@ namespace movingObjects {
 
     function handleResize() {
         viewPortDimensions = { "x": window.innerWidth as number, "y": window.innerHeight as number };
+        console.log(viewPortDimensions);
     }
 
 
 
     function onClick(_event: MouseEvent) {
         let clickedElement = _event.target as HTMLElement;
-        console.log(clickedElement.className);
+
         if (clickedElement.className == "ball") {
 
 
-            for (let ball of ballList) {
+            for (let ball of BALL_LIST) {
                 if (ball["currentBall"] == clickedElement) {
-                    let removedBall = ballList.splice(ballList.indexOf(ball), 1);
-                    console.log(removedBall);
+                    let removedBall = BALL_LIST.splice(BALL_LIST.indexOf(ball), 1);
+                   
                 }
             }
             clickedElement.remove();
-            console.log("balllist:");
-            console.log(ballList);
+
         }
         else if (clickedElement.className == "body") {
-            createBalls(1, false, [_event.pageX, _event.pageY-50], ballList.length);
+            createBalls(1, false, [_event.pageX, _event.pageY - 50], BALL_LIST.length);
 
         }
     }

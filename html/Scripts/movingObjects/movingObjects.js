@@ -2,9 +2,9 @@
 var movingObjects;
 (function (movingObjects) {
     let initBall;
-    let ballList = [];
+    const BALL_LIST = [];
     let viewPortDimensions;
-    const ballSpeed = 100;
+    const BALL_SPEED = 100;
     let previousTime;
     let currentTime;
     let deltaTime;
@@ -26,20 +26,20 @@ var movingObjects;
         for (let i = 0; i < _amount; i++) {
             let posToAdd;
             if (_randomised) {
-                posToAdd = { "x": randomInt(1, visualViewport?.width), "y": randomInt(1, visualViewport?.height) };
+                posToAdd = { "x": randomInt(20, visualViewport?.width), "y": randomInt(100, visualViewport?.height) };
                 ballIndex = i;
             }
             else {
                 posToAdd = { "x": _clickedPos[0], "y": _clickedPos[1] };
                 ballIndex = _listSize;
             }
-            ballList.push({
+            BALL_LIST.push({
                 "currentBall": initBall.cloneNode(true),
                 "pos": posToAdd,
                 "vel": createVelocity()
             });
-            let ball = ballList[ballIndex]["currentBall"];
-            ball.style.transform = assembleMatrix(ballList[ballIndex]["pos"]["x"], ballList[ballIndex]["pos"]["y"]);
+            let ball = BALL_LIST[ballIndex]["currentBall"];
+            ball.style.transform = assembleMatrix(BALL_LIST[ballIndex]["pos"]["x"], BALL_LIST[ballIndex]["pos"]["y"]);
             document.body.appendChild(ball);
             ball.style.backgroundColor = randomColour();
         }
@@ -47,8 +47,8 @@ var movingObjects;
     function movement() {
         calcDelta();
         let deltaDivided = deltaTime / 1000;
-        for (let i = 0; i < ballList.length; i++) {
-            let ball = ballList[i];
+        for (let i = 0; i < BALL_LIST.length; i++) {
+            let ball = BALL_LIST[i];
             ball["vel"]["x"] *= checkBounds(ball["pos"]["x"], viewPortDimensions["x"]);
             ball["vel"]["y"] *= checkBounds(ball["pos"]["y"], viewPortDimensions["y"]);
             ball["pos"]["x"] += ball["vel"]["x"] * deltaDivided;
@@ -72,8 +72,8 @@ var movingObjects;
         return `matrix(10,0,0,10,${_translateX},${_translateY})`;
     }
     function createVelocity() {
-        let x = randomInt(-ballSpeed, ballSpeed);
-        let y = randomInt(-ballSpeed, ballSpeed);
+        let x = randomInt(-BALL_SPEED, BALL_SPEED);
+        let y = randomInt(-BALL_SPEED, BALL_SPEED);
         let timeout = 0;
         while (x == 0 && y == 0) {
             if (timeout == 3) {
@@ -82,12 +82,12 @@ var movingObjects;
                 break;
             }
             else {
-                x = randomInt(-ballSpeed, ballSpeed);
-                y = randomInt(-ballSpeed, ballSpeed);
+                x = randomInt(-BALL_SPEED, BALL_SPEED);
+                y = randomInt(-BALL_SPEED, BALL_SPEED);
                 timeout++;
             }
         }
-        return { "x": randomInt(-ballSpeed, ballSpeed), "y": randomInt(-ballSpeed, ballSpeed) };
+        return { "x": x, "y": y };
     }
     function checkBounds(_ballPos, _viewportValue) {
         if (_ballPos > _viewportValue || _ballPos <= 0) {
@@ -99,23 +99,20 @@ var movingObjects;
     }
     function handleResize() {
         viewPortDimensions = { "x": window.innerWidth, "y": window.innerHeight };
+        console.log(viewPortDimensions);
     }
     function onClick(_event) {
         let clickedElement = _event.target;
-        console.log(clickedElement.className);
         if (clickedElement.className == "ball") {
-            for (let ball of ballList) {
+            for (let ball of BALL_LIST) {
                 if (ball["currentBall"] == clickedElement) {
-                    let removedBall = ballList.splice(ballList.indexOf(ball), 1);
-                    console.log(removedBall);
+                    let removedBall = BALL_LIST.splice(BALL_LIST.indexOf(ball), 1);
                 }
             }
             clickedElement.remove();
-            console.log("balllist:");
-            console.log(ballList);
         }
         else if (clickedElement.className == "body") {
-            createBalls(1, false, [_event.pageX, _event.pageY - 50], ballList.length);
+            createBalls(1, false, [_event.pageX, _event.pageY - 50], BALL_LIST.length);
         }
     }
     function randomColour() {
