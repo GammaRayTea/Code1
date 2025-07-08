@@ -1,0 +1,19 @@
+html {
+    height: 100%;
+    background-color: rgb(38, 38, 38);
+}
+body {
+    height:100%;
+    overflow: hidden;
+}
+.tank {
+    position: fixed;
+    width: 10px;
+    height: 20px;
+    background-color: rgb(201, 106, 106);
+    transform: matrix(10, 0, 0, 10, 500, 500);
+
+}
+#frameCounter {
+    color:white;
+}
